@@ -430,9 +430,12 @@ public abstract class AbstractView extends WebApplicationObjectSupport implement
 
 
 	/**
+	 * 暴露这个模型对象，给这个map作为一个请求属性，属性名从模型的map中获取。
 	 * Expose the model objects in the given map as request attributes.
 	 * Names will be taken from the model Map.
+	 * 这个方法已经适应了全部的资源。
 	 * This method is suitable for all resources reachable by {@link javax.servlet.RequestDispatcher}.
+	 * 暴露一个对象模型的map
 	 * @param model a Map of model objects to expose
 	 * @param request current HTTP request
 	 */

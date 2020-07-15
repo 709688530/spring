@@ -29,14 +29,17 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.util.WebUtils;
 
 /**
+ * 在相同的web应用中，包装jsp或者其他的资源，揭露模型对象作为请求属性，并且转发这个请求给特殊url作为一个link
  * Wrapper for a JSP or other resource within the same web application.
  * Exposes model objects as request attributes and forwards the request to
  * the specified resource URL using a {@link javax.servlet.RequestDispatcher}.
  *
+ * 对于这个视图的url应该是一个特殊的web应用资源，合适的调度或者方法
  * <p>A URL for this view is supposed to specify a resource within the web
  * application, suitable for RequestDispatcher's {@code forward} or
  * {@code include} method.
  *
+ * 如果在一个已经包括的请求，或者在一个已经提交的响应中，这个视图将退回，包含而不是转发。他能在渲染视图之前强制执行。
  * <p>If operating within an already included request or within a response that
  * has already been committed, this view will fall back to an include instead of
  * a forward. This can be enforced by calling {@code response.flushBuffer()}
@@ -131,6 +134,7 @@ public class InternalResourceView extends AbstractUrlBasedView {
 
 
 	/**
+	 * 渲染内部资源给这个特殊的模型，这包括设置这个模型作为一个请求属性
 	 * Render the internal resource given the specified model.
 	 * This includes setting the model as request attributes.
 	 */
@@ -144,6 +148,7 @@ public class InternalResourceView extends AbstractUrlBasedView {
 		// Expose helpers as request attributes, if any.
 		exposeHelpers(request);
 
+		//确定这个请求调度的地址
 		// Determine the path for the request dispatcher.
 		String dispatcherPath = prepareForRendering(request, response);
 
